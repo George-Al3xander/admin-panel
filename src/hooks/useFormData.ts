@@ -55,7 +55,7 @@ const useFormData = (initialData?: project | skill) => {
                         removeFromForm(name)
                     } else {               
                         setFormData(prev => {
-                            return {...prev, [name]: value}
+                            return {...prev, [name]: value.trim()}
                         }) 
                     }
                 }
@@ -73,7 +73,7 @@ const useFormData = (initialData?: project | skill) => {
                     }
                 
                     setFormData(prev => {
-                        return {...prev, [name]: value}
+                        return {...prev, [name]: value.trim()}
                     })
                 }
             }

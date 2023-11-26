@@ -69,7 +69,7 @@ const ProjectForm = ({project, handleChange, onImageChange, resetImgCallback}: {
         <fieldset className="border-b-2 flex gap-4 py-2 flex-wrap">
             <h3 className="font-bold capitalize">Created at</h3>
             <div className="flex flex-col gap-4">
-               <input ref={dateInputRef} className="border-b-2 border-primary" onChange={handleChange}  type="date" defaultValue={handleDefaultValue("created_at")} name="" id="" />
+               <input ref={dateInputRef} className="border-b-2 border-primary" onChange={handleChange}  type="date" defaultValue={handleDefaultValue("created_at")} name="created_at" id="" />
                <Button onClick={fetchFromGh}>fetch from the github repo</Button>
             </div>
          </fieldset>  

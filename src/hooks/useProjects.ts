@@ -2,7 +2,7 @@ import { DocumentData, Query, getDocs, limit, orderBy, query, startAfter } from 
 import {ref, listAll,getDownloadURL} from "firebase/storage"
 import { storage } from "../firebase-config"
 import { projectsCollectionRef } from '../firebase-config';
-import { project } from "../types/types";
+import { formData, project } from "../types/types";
 import {useEffect, useState} from "react"
 
 
@@ -39,14 +39,14 @@ const useProjects = () => {
 
     const getProjects = async () => {        
         setIsLoading(true)
-        const result = await getProjectsFromDb(query(projectsCollectionRef, limit(6), orderBy("created_at")))
+        const result = await getProjectsFromDb(query(projectsCollectionRef, limit(6), orderBy("created_at","desc")))
         setProjects(result)
         setIsLoading(false)
       }
       
       const fetchNextPage = async () => {
         setIsFetchingNextPage(true)
-        const next = query(projectsCollectionRef, limit(6), orderBy("created_at"), startAfter(lastVisible));        
+        const next = query(projectsCollectionRef, limit(6), orderBy("created_at","desc"), startAfter(lastVisible));        
         const result = await getProjectsFromDb(next)      
         setProjects((prev) => [...prev, ...result])
         setIsFetchingNextPage(false)       
@@ -62,6 +62,20 @@ const useProjects = () => {
        }     
     },[projects])
     
+    const handleLocally = (newValue: formData | project, oldValue?: project)  => {
+      let tempArray = projects
+        if(oldValue) {
+          const index = projects.findIndex((el) => el.id == oldValue.id)
+          const newObj = Object.assign(oldValue, newValue)
+          tempArray[index] = newObj
+        } else {
+          // tempArray.push(newValue as project);
+          // tempArray = tempArray.sort((a,b) => {
+          //   //return new Date(b.created_at)  - new Date(a.created_at) ;
+          // })
+        }
+        setProjects(tempArray)
+    }
    
     
     return {projects, isLoading,fetchNextPage,hasNextPage ,isFetchingNextPage}

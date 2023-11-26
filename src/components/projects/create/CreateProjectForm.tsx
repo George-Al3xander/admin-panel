@@ -5,17 +5,18 @@ import AcceptRejectBtns from "../../reusable/AcceptRejectBtns"
 import ProjectForm from "../ProjectForm"
 import { db } from "../../../firebase-config"
 import { MouseEventHandler, useEffect} from "react"
-import useValidateFD from "../../../hooks/useValidateProject.ts"
+//import useValidateProjects from "../../../hooks/useValidateProject.ts"
+import useValidateProjects from "../../../hooks/useValidateProjects.ts"
 
 
 
 
 const CreateProjectForm = ({close}: {close: MouseEventHandler<HTMLDivElement>}) => {
-    const {handleChange,formData, removeFromForm} = useFormData()
+    const {handleChange,formData, removeFromForm, statusChanges} = useFormData()
     const {onImageChange, update, resetUpload, isImage} = useUpdateImage({onSucces: () => {}, folder: "images"})
-    const {overall} = useValidateFD(formData)
-    useEffect(() => {
-    
+    const {overall} = useValidateProjects(formData)
+     useEffect(() => {
+        console.log(overall)
     }, [overall])
 
     const updateProject = async () => {      
@@ -30,7 +31,7 @@ const CreateProjectForm = ({close}: {close: MouseEventHandler<HTMLDivElement>}) 
 
     return(<div className="translate-y-[-55%] translate-x-[-50%] fixed z-[1000] top-[50%] left-[50%] bg-white">
         <ProjectForm  handleChange={handleChange} onImageChange={onImageChange} resetImgCallback={resetImgCallback}/>
-        <AcceptRejectBtns condtion={[isImage, Object.keys(formData).length > 4].every((el) => el == false)} accept={updateProject} reject={close}/>
+        <AcceptRejectBtns condtion={[statusChanges,isImage, overall].includes(false)} accept={updateProject} reject={close}/>
    </div> )
 }
 
