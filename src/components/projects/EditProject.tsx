@@ -9,7 +9,7 @@ import ProjectForm from "./ProjectForm";
 
 const EditProject = ({project, handleStatus, mutate}: {project: project, handleStatus: Function, mutate: Function}) => {
    
-   const {handleChange, statusChanges, formData, removeFromForm} = useFormData({initialData: project})
+   const {handleChange, statusChanges, formData, removeFromForm} = useFormData(project)
    const {onImageChange, update, resetUpload, isImage} = useUpdateImage({image: project.img, onSucces: () => {}, folder: "images"})
      
    const updateProject = async () => {

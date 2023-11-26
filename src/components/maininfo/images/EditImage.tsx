@@ -1,4 +1,4 @@
-import useUpdateImage from "../../../hooks/useUpdateImage"
+import useUpdateImage from "../../../hooks/useUpdateImage.ts"
 import { picture } from "../../../types/types"
 import AcceptRejectBtns from "../../reusable/AcceptRejectBtns"
 import Button from "../../reusable/Button"

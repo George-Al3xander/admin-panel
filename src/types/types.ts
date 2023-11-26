@@ -20,7 +20,7 @@ export type skill = {
     id: string,
     icon: string,
     name: string,
-    order: number
+    order: number,
 }
 
 
@@ -32,10 +32,11 @@ export type project = {
     url_github: string,
     url_preview: string,
     id: string,
-    img: picture 
+    img: picture ,
+    created_at: Date,    
 }
 
-export type formData = Partial<project | skill>
+export type formData<T = project | skill> = Partial<T>
 
 export type picture = {
     name: string,

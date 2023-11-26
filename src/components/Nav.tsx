@@ -11,7 +11,7 @@ const Nav = () => {
         {path: "skills", icon: BsListStars}
     ]
 
-    return(<nav className="bg-primary text-white md:w-[10rem] p-4 z-40 fixed md:h-[100%] text-center justify-between flex gap-4 flex-wrap md:flex-col md:justify-start mb-10">
+    return(<nav className="bg-primary  text-white w-[100%] md:w-[10rem] p-4 z-40 fixed md:h-[100%] text-center justify-between flex gap-4 flex-wrap md:flex-col md:justify-start mb-10">
         <h3 className="text-lg italic uppercase">Admin panel</h3>
         <ul className="flex flex-row md:flex-col gap-4">
             {fields.map((field) => {
@@ -20,7 +20,7 @@ const Nav = () => {
                         <field.icon  size={20}/>
                         <span>{field.path.replace("-", " ")}</span>
                     </NavLink>
-            </li>
+                </li>
             })}           
         </ul>
     </nav>)

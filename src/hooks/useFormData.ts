@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
 import { formData, project, skill } from "../types/types"
+import { RVTool } from "regex-validation-tool";
 
 
 
-const useFormData = ({initialData}: {initialData?: project | skill}) => {
+const useFormData = (initialData?: project | skill) => {
     const [formData, setFormData] = useState<formData>({});
-    const [statusChanges, SetStatusChanges] = useState(false)
-    const blankValid = new RegExp(/\S/)
+    const [statusChanges, setStatusChanges] = useState(false)
+    const rvt = new RVTool()
+    const notBlank = rvt.customRegex(/\S/)    
     const removeFromForm = (key: string) => {
         const temp = {...formData}
         delete temp[key as keyof formData]
@@ -37,9 +39,9 @@ const useFormData = ({initialData}: {initialData?: project | skill}) => {
         //Input is a string     
         } else {
             if(initialData) {
-                const initialValue = initialData[name as keyof formData];          
+                const initialValue = initialData[name as keyof formData]; 
                 if(typeof initialValue === "boolean" || initialValue == undefined) {
-                    const newValue = (value === "true"); 
+                    const newValue = (value === "true");                     
                     if((typeof initialValue == "undefined" && newValue == false) || newValue == initialValue){   
                         removeFromForm(name)                    
                     } else {
@@ -49,7 +51,7 @@ const useFormData = ({initialData}: {initialData?: project | skill}) => {
                         
                     }
                 } else {
-                    if(value == initialValue || !blankValid.test(value)) {
+                    if(value == initialValue || !notBlank(value)) {
                         removeFromForm(name)
                     } else {               
                         setFormData(prev => {
@@ -65,6 +67,11 @@ const useFormData = ({initialData}: {initialData?: project | skill}) => {
                         return {...prev, [name]: newValue}
                     }) 
                 } else {
+                    if(!notBlank(value)) {
+                        removeFromForm(name)
+                        return
+                    }
+                
                     setFormData(prev => {
                         return {...prev, [name]: value}
                     })
@@ -80,7 +87,7 @@ const useFormData = ({initialData}: {initialData?: project | skill}) => {
                 const value = formData[key as keyof formData]
                 const initialValue = initialData[key as keyof formData];          
                 if(typeof value == "string") {
-                    return (value == initialValue && blankValid.test(value!))
+                    return (value == initialValue && notBlank(value))
                 } else if(typeof value === "boolean"){   
                     if(typeof initialValue == "undefined"){                                 
                         if(value == false) {
@@ -95,10 +102,16 @@ const useFormData = ({initialData}: {initialData?: project | skill}) => {
                 }     
             })
             if(every.length > 0) {
-                SetStatusChanges(every.every(el => el === false))
+                setStatusChanges(every.every(el => el === false))
             } else {
-                SetStatusChanges(false)
+                setStatusChanges(false)
             }  
+        } else {
+            if(Object.keys(formData).length > 4) {
+                setStatusChanges(true)
+            } else {
+                setStatusChanges(false)
+            }
         }
     }, [formData])
     

@@ -9,6 +9,15 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 
+const InfoField = ({title, data} : {title: string, data: string}) => {
+    
+    return <div className="border-b-2 flex gap-4 py-2 flex-wrap">
+        <h3 className="font-bold capitalize">{title}: </h3>
+        <span>{data}</span>
+    </div>
+
+}
+
 
 const Project = ({project}: {project:project}) => {
     const {name, id,img,description,url_github,url_preview,isFullstack, isHidden} = project
@@ -31,28 +40,20 @@ const Project = ({project}: {project:project}) => {
         </div>
     }
 
-    return(<div key={`preview-${id}`}>
+    return(<div key={`preview-${id}`} className="border-2 p-2 rounded">
         {/* {isHidden ? <BiSolidHide /> : <BiSolidShow/>} */}
-        <div className="max-w-[20rem]">
+        <div className="max-w-[20rem] mx-auto">
             <img src={url} alt={`preview-img-${id}`} />
         </div>
-        <div>
-        <h3>Title: <span> {name}</span></h3>
-        </div>
-        <div>
-        <h3>github: <span> {url_github}</span></h3>
-        </div>
-        <div>
-        <h3>preview: <span> {url_preview}</span></h3>
-        </div>
-        <div>
-        <h3>IsFullstack: <span> {isFullstack ? "true" : "false"}</span></h3>
-        </div>
-        <div>
-        <h3>isHidden: <span> {isHidden ? "true" : "false"}</span></h3>
-        </div>
-        <div>
-            <h3>Description: </h3>
+        <InfoField title={"title"} data={name}/>
+        <InfoField title={"github"} data={url_github}/>
+        <InfoField title={"preview"} data={url_preview}/>
+        <InfoField title={"isFullstack"} data={isFullstack ? "true" : "false"}/>
+        <InfoField title={"isHidden"} data={isHidden ? "true" : "false"}/>
+        
+
+        <div className="border-b-2 flex gap-4 py-2 flex-wrap">
+            <h3 className="font-bold capitalize">Description: </h3>
             <p>{description}</p>
         </div>
         <div className="flex justify-center my-2">

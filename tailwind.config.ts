@@ -8,6 +8,9 @@ export default {
       },
       fontFamily: {
         "default": "'Roboto', sans-serif"
+      },
+      width: {
+        "responsive": "min(90%,40rem)"
       }
     },
   },  
