@@ -33,13 +33,25 @@ const useUpdateImage = ({image, onSucces, folder}: {image?: picture, onSucces: F
         .catch((error) => {
             setIsLoading(false)
             console.log(error)
-        });                 
+            return {status: 400}
+            
+        });    
+        return {status: 200}
+
     }
+
+    
 
     const resetUpload = () => {
        // console.log(11)
         setImageUpload(null)
     }
+
+    const replaceImage = () => {
+        const extn = imageUpload?.name.split(".")[1]    
+
+    }
+
     useEffect(() => {
         if(imageUpload) {
             setIsImage(true)
@@ -58,6 +70,8 @@ const useUpdateImage = ({image, onSucces, folder}: {image?: picture, onSucces: F
             setImagePreview("")
         }
     },[editStatus])
+
+
 
     return {isLoading,update, imagePreview, imageUpload, onImageChange, editStatus,handleStatus, resetUpload, isImage}
 

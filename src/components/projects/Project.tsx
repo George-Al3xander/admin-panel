@@ -23,7 +23,7 @@ const InfoField = ({title, data} : {title: string, data: string}) => {
 }
 
 
-const Project = ({project}: {project:project}) => {
+const Project = ({project, refetch}: {project:project, refetch: Function}) => {
     const [deleteMenu,setDeleteMenu] = useState(false)
     const {name, id,img,description,url_github,url_preview,isFullstack, isHidden} = project
     const projectsRef = doc(db, "projects", id)
@@ -38,6 +38,7 @@ const Project = ({project}: {project:project}) => {
         deleteDoc(projectsRef).then(() => {
             deleteObject(ref(storage, `images/${project.img.fullName}`)).then(() => {
                 notifySucces("Project deleted")
+                refetch()
             }).catch(() => {
                 notifyErr("Deleting photo from storage failed")
             })
@@ -47,7 +48,7 @@ const Project = ({project}: {project:project}) => {
     }   
 
     
-    const {mutate, isLoading,editStatus,handleStatus} = useUpdate(update)
+    const {mutate, isLoading,editStatus,handleStatus,isError} = useUpdate(update)
     
     if(isLoading) {
         return <div>Loading...</div>
@@ -55,7 +56,7 @@ const Project = ({project}: {project:project}) => {
    
     if(editStatus) {
         return <div>
-            <EditProject mutate={mutate} handleStatus={handleStatus} project={project}/>
+            <EditProject refetch={refetch} isError={isError} mutate={mutate} handleStatus={handleStatus} project={project}/>
         </div>
     }
 

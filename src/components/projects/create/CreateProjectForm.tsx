@@ -4,27 +4,31 @@ import useUpdateImage from "../../../hooks/useUpdateImage.ts"
 import AcceptRejectBtns from "../../reusable/AcceptRejectBtns"
 import ProjectForm from "../ProjectForm"
 import { db } from "../../../firebase-config"
-import { MouseEventHandler, useContext, useEffect} from "react"
-//import useValidateProjects from "../../../hooks/useValidateProject.ts"
+import {  useEffect} from "react"
 import useValidateProjects from "../../../hooks/useValidateProjects.ts"
-import { ProjectsContext } from "../../../hooks/useProjects.tsx"
+import { toast } from "react-toastify"
 
 
 
 
-const CreateProjectForm = ({close}: {close: MouseEventHandler<HTMLDivElement> | Function}) => {
+
+const CreateProjectForm = ({close, refetch}: {close:  Function, refetch:Function}) => {
     const {handleChange,formData, removeFromForm, statusChanges} = useFormData()
-    const {onImageChange, update, resetUpload, isImage} = useUpdateImage({onSucces: () => {}, folder: "images"})
+    const {onImageChange, update, imageUpload,resetUpload, isImage, imagePreview} = useUpdateImage({onSucces: () => {}, folder: "images"})
     const {overall} = useValidateProjects(formData)
-     useEffect(() => {
-        console.log(overall)
-    }, [overall])
-    const {handleProjectLocally} = useContext(ProjectsContext)
-
-    const updateProject = async () => {      
+    const notifyErr = (msg:string) => toast.error(msg);
+    const notifySucces = (msg:string) => toast.success(msg);
+   
+    const updateProject = async () => {             
         const docRef = await addDoc(collection(db, "projects"), formData);      
-        await update(docRef.id)
-        console.log(await docRef.id)
+        update(docRef.id)
+        .then(() => {            
+            notifySucces("Project created")
+            refetch()
+            close()
+        }).catch(() => {
+            notifyErr("Creation of a new project failed")
+        })
      }
 
     const resetImgCallback = () => {
