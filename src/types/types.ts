@@ -33,7 +33,7 @@ export type project = {
     url_preview: string,
     id: string,
     img: picture ,
-    created_at: Date,    
+    created_at: string,    
 }
 
 export type formData<T = project | skill> = Partial<T>

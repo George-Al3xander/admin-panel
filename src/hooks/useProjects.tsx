@@ -3,7 +3,7 @@ import {ref, listAll,getDownloadURL} from "firebase/storage"
 import { storage } from "../firebase-config"
 import { projectsCollectionRef } from '../firebase-config';
 import { formData, project } from "../types/types";
-import {useEffect, useState} from "react"
+import {createContext, useContext, useEffect, useState} from "react"
 
 
 
@@ -62,23 +62,41 @@ const useProjects = () => {
        }     
     },[projects])
     
-    const handleLocally = (newValue: formData | project, oldValue?: project)  => {
-      let tempArray = projects
-        if(oldValue) {
-          const index = projects.findIndex((el) => el.id == oldValue.id)
+    const handleProjectLocally = (newValue: formData | project, oldValue?: project)  => {
+      if(oldValue) {
+          let tempArray = projects
+          const index = projects.findIndex((el) => el.id == oldValue.id);
           const newObj = Object.assign(oldValue, newValue)
           tempArray[index] = newObj
+          setProjects(tempArray);
         } else {
-          // tempArray.push(newValue as project);
-          // tempArray = tempArray.sort((a,b) => {
-          //   //return new Date(b.created_at)  - new Date(a.created_at) ;
-          // })
-        }
-        setProjects(tempArray)
+          let tempArray = projects;
+          tempArray.push(newValue as project);
+          tempArray = tempArray.sort((a,b) =>  new Date(b.created_at).valueOf()  - new Date(a.created_at).valueOf() )
+          setProjects(tempArray)
+        }      
     }
    
     
-    return {projects, isLoading,fetchNextPage,hasNextPage ,isFetchingNextPage}
+    return {projects, isLoading,fetchNextPage,hasNextPage ,isFetchingNextPage, handleProjectLocally}
+}
+
+
+type ProjectsResult = Partial<ReturnType<typeof useProjects>>
+
+export const ProjectsContext = createContext<ProjectsResult>({
+  handleProjectLocally: () => {}
+})
+
+
+export const ProjectsProvider = ({children,value}: {children: React.ReactNode, value: ProjectsResult}) => (
+  <ProjectsContext.Provider value={value}>{children}</ProjectsContext.Provider>
+)
+
+
+export const useHandleProjectLocally = () => {
+  const {handleProjectLocally} =  useContext(ProjectsContext)
+  return handleProjectLocally
 }
 
 export default useProjects

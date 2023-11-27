@@ -4,7 +4,6 @@ import moment from "moment"
 import Button from "../reusable/Button"
 import { RVTool } from "regex-validation-tool"
 import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProjectForm = ({project, handleChange, onImageChange, resetImgCallback}: {project?: project,resetImgCallback?: Function ,onImageChange: any ,handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void}) => {
