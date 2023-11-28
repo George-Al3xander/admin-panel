@@ -14,7 +14,7 @@ import { toast } from "react-toastify"
 
 const CreateProjectForm = ({close, refetch}: {close:  Function, refetch:Function}) => {
     const {handleChange,formData, removeFromForm, statusChanges} = useFormData()
-    const {onImageChange, update, imageUpload,resetUpload, isImage, imagePreview} = useUpdateImage({onSucces: () => {}, folder: "images"})
+    const {onImageChange, update, resetUpload, isImage} = useUpdateImage({onSucces: () => {}, folder: "images"})
     const {overall} = useValidateProjects(formData)
     const notifyErr = (msg:string) => toast.error(msg);
     const notifySucces = (msg:string) => toast.success(msg);
@@ -36,7 +36,7 @@ const CreateProjectForm = ({close, refetch}: {close:  Function, refetch:Function
         resetUpload();
     }
 
-    return(<div className="translate-y-[-55%] translate-x-[-50%] fixed z-[1000] top-[50%] left-[50%] bg-white">
+    return(<div className="translate-y-[-50%] translate-x-[-50%] fixed z-[1000] top-[50%] left-[50%] bg-white rounded-lg">
         <ProjectForm  handleChange={handleChange} onImageChange={onImageChange} resetImgCallback={resetImgCallback}/>
         <AcceptRejectBtns condtion={[statusChanges,isImage, overall].includes(false)} accept={updateProject} reject={close}/>
    </div> )

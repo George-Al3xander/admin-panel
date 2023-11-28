@@ -4,6 +4,7 @@ import { storage } from "../../../firebase-config";
 import EditImage from "./EditImage";
 import { picture } from "../../../types/types";
 import Title from "../../reusable/Title";
+import SkeletonImages from "../skeleton/SkeletonImages";
 
 
 
@@ -20,7 +21,7 @@ const ImagesContainer = () => {
 
       const {data, isLoading, isError, refetch, isRefetching} = useQuery({queryFn: getPictures, queryKey: ["images"], refetchOnWindowFocus: false})
       if(isLoading  || isRefetching) {
-        return <div>Loading...</div>
+        return <SkeletonImages />
       }
 
       if(isError) {

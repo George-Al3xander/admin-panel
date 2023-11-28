@@ -9,6 +9,7 @@ import useUpdate from "../../hooks/useUpdate.ts";
 import AcceptRejectBtns from "../reusable/AcceptRejectBtns";
 import Button from "../reusable/Button";
 import Title from "../reusable/Title";
+import Skeleton from "react-loading-skeleton";
 
 
 
@@ -26,10 +27,13 @@ const Description = ({desc}: {desc: description}) => {
     
     
     if(isLoading) {
-        <div className="flex  gap-4">
-            <h3 className="text-xl text-green-500">Updating...</h3>
-            <button disabled>Click</button>
-            <button disabled>Cancel</button>
+        return <div>
+            <Title>Description</Title>        
+            <div  className="my-4" >
+                <Skeleton height={20} count={8}/>
+            </div>
+            <AcceptRejectBtns reject={() => {}} accept={() => {}} condtion={true} />
+
         </div>
     }
     

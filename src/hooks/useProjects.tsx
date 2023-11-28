@@ -40,7 +40,7 @@ const useProjects = () => {
 
     const getProjects = async () => {        
         setIsLoading(true)
-        setHasNextPage(false)
+        setHasNextPage(true)
         try {
           const result = await getProjectsFromDb(query(projectsCollectionRef, limit(6), orderBy("created_at","desc")))
           setProjects(result)
@@ -72,8 +72,7 @@ const useProjects = () => {
     useEffect(() => {      
        if(projects.length % 6 != 0) {
             setHasNextPage(false)            
-       }  
-             
+       }               
     },[projects])
     
        

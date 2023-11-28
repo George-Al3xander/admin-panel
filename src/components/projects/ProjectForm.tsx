@@ -55,7 +55,7 @@ const ProjectForm = ({project, handleChange, onImageChange, resetImgCallback}: {
    }
 
 
-    return(<form className="border-2 p-2 rounded mx-auto" onSubmit={(e) => e.preventDefault()} key={`edit-${handleDefaultValue("id")}`}>              
+    return(<form className="border-2 p-2  rounded mx-auto" onSubmit={(e) => e.preventDefault()} key={`edit-${handleDefaultValue("id")}`}>              
         <fieldset  className="h-[10rem] flex-col flex justify-center items-center">
             <input className="border-b-2 border-primary" ref={imgInputRef} multiple={false} type="file" name="img" accept="image/*" onChange={onImageChange}/>
             <button onClick={() => resetImg(resetImgCallback)}>Reset</button>
@@ -76,7 +76,6 @@ const ProjectForm = ({project, handleChange, onImageChange, resetImgCallback}: {
         <fieldset className="border-b-2 flex gap-4 py-2 flex-wrap">
            <h3 className="font-bold capitalize">github: </h3>
            <input tabIndex={3} ref={repoInputRef} className="border-b-2 border-primary" type="text" name="url_github" onChange={handleChange} defaultValue={handleDefaultValue("url_github")}/>
-
         </fieldset>
 
         <fieldset className="border-b-2 flex gap-4 py-2 flex-wrap">
@@ -100,7 +99,7 @@ const ProjectForm = ({project, handleChange, onImageChange, resetImgCallback}: {
         </fieldset>
         <fieldset className="border-b-2 flex gap-4 py-2 flex-wrap">
             <h3 className="font-bold capitalize">Description: </h3>
-            <textarea  onChange={handleChange} name="description" defaultValue={handleDefaultValue("description")} id="" cols={30} rows={5}></textarea>
+            <textarea className="p-2 border-b-2 border-primary"  onChange={handleChange} name="description" defaultValue={handleDefaultValue("description")} id="" cols={30} rows={1}></textarea>
         </fieldset>           
     </form>)
 }

@@ -3,9 +3,9 @@ import { getDocs } from "firebase/firestore";
 import { description, links, linksDb } from "../../types/types";
 import { useQuery } from "react-query";
 import Description from "./Description";
-import EditLinksWrapper from "./EditLinksWrapper";
 import ImagesContainer from "./images/ImagesContainer";
 import Links from "./Links";
+import SkeletonMainInfo from "./skeleton/SkeletonMainInfo";
 
 
 
@@ -23,7 +23,7 @@ const MainInfo = () => {
       const {data, isLoading, isError} = useQuery({queryFn: getLinks, queryKey: ["links"]})
       
       if(isLoading) {
-        return <div>Loading...</div>
+        return <SkeletonMainInfo />
       }
 
       if(isError) {

@@ -9,18 +9,11 @@ import { useState } from "react";
 import DeleteConfirm from "../DeleteConfirm";
 import { deleteObject, ref } from "firebase/storage";
 import { toast } from "react-toastify";
+import InfoField from "../InfoField";
 //import { ProjectsContext, handleProjectLocally, useHandleProjectLocally } from "../../hooks/useProjects";
 //import { useContext } from "react";
 
 
-const InfoField = ({title, data} : {title: string, data: string}) => {
-    
-    return <div className="border-b-2 flex gap-4 py-2 flex-wrap">
-        <h3 className="font-bold capitalize">{title}: </h3>
-        <span>{data}</span>
-    </div>
-
-}
 
 
 const Project = ({project, refetch}: {project:project, refetch: Function}) => {
@@ -61,7 +54,7 @@ const Project = ({project, refetch}: {project:project, refetch: Function}) => {
     }
 
     return(<div key={`preview-${id}`} className="border-2 p-2 rounded relative">
-        <DeleteConfirm obj={project} status={deleteMenu} deleteFunc={deleteProject} cancelFunc={() => setDeleteMenu(false)}/>
+        <DeleteConfirm scroll obj={project} status={deleteMenu} deleteFunc={deleteProject} cancelFunc={() => setDeleteMenu(false)}/>
 
 
         <div className="max-w-[20rem] mx-auto">

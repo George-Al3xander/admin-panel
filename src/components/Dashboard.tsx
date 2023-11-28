@@ -4,6 +4,7 @@ import Nav from "./Nav"
 import MainInfo from "./maininfo/MainInfo"
 import Projects from "./projects/Projects"
 import { ToastContainer } from "react-toastify"
+import Skills from "./maininfo/skills/Skills"
 
 
 
@@ -21,7 +22,7 @@ const Dashboard = () => {
             <Routes>
                 <Route element={<MainInfo/>} path={"/main-info"}>Main info</Route>
                 <Route element={<Projects />} path={"/projects"}>Projects</Route>
-                <Route element={<h3>Skills</h3>} path={"/skills"}>Skills</Route>                
+                <Route element={<Skills />} path={"/skills"}>Skills</Route>                
             </Routes>            
         </div>            
         </div>
