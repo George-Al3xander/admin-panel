@@ -1,6 +1,4 @@
-import {useRef } from "react";
-import parse from 'html-react-parser';
-import { Editor } from '@tinymce/tinymce-react';
+import {useRef, useState } from "react";
 import { description } from "../../types/types";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
@@ -15,15 +13,19 @@ import Skeleton from "react-loading-skeleton";
 
 const Description = ({desc}: {desc: description}) => {
     const {description,id} = desc    
-    const editorRef = useRef<any>(null);
-    const descRef = doc(db, "links", id)
-    const update = async() => {
-        if(editorRef != null) {
-            await updateDoc(descRef, {description:editorRef.current.getContent()})
-        }
+   // const editorRef = useRef<any>(null);
+    const descRef = doc(db, "links", id);
+    const [newDesc, setNewDesc] = useState(description);
+    const handleDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const {value} = e.target 
+        setNewDesc(value)
+    }
+    const update = async() => {  
+        await updateDoc(descRef, {description:newDesc.trim()});
+        return newDesc   
     }
 
-    const {mutate, isLoading,editStatus,handleStatus} = useUpdate(update)
+    const {data,mutate, isLoading,editStatus,handleStatus} = useUpdate(update)
     
     
     if(isLoading) {
@@ -41,8 +43,7 @@ const Description = ({desc}: {desc: description}) => {
         return <div>
         <Title>Description</Title>        
         <div className="p-2">
-        {parse(description)} 
-
+        <p>{data ? data as string :  description}</p>
         </div>
         <div className="flex justify-center my-2">
             <Button className="mx-auto" onClick={handleStatus}>Edit</Button>                
@@ -53,10 +54,10 @@ const Description = ({desc}: {desc: description}) => {
    
     return(<div>
         <h1 className="bg-primary text-white">Description</h1>
-        <Editor
+        {/* <Editor
          onInit={(evt, editor) => editorRef.current = editor}
-         initialValue={description}   
-               
+         initialValue={description}  
+      
          apiKey={import.meta.env.VITE_MCE_API_KEY}
          init={{
            height: 500,
@@ -72,8 +73,9 @@ const Description = ({desc}: {desc: description}) => {
            'removeformat | help',
            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
          }}
-       />     
-       <AcceptRejectBtns accept={() => mutate()} reject={handleStatus}/>  
+       />      */}
+       <textarea className="p-2 w-[100%]" onChange={handleDescChange} defaultValue={data ? data as string :  description} name="description" id=""  rows={10}></textarea>
+       <AcceptRejectBtns condtion={data ? data == newDesc :  newDesc == description} accept={() => mutate()} reject={handleStatus}/>  
     </div>)
 }
 

@@ -55,7 +55,7 @@ const useFormData = (initialData?: project | skill) => {
                         removeFromForm(name)
                     } else {               
                         setFormData(prev => {
-                            return {...prev, [name]: +value.trim()}
+                            return {...prev, [name]: value.trim()}
                         }) 
                     }
                 }
@@ -73,7 +73,7 @@ const useFormData = (initialData?: project | skill) => {
                     }
                 
                     setFormData(prev => {
-                        return {...prev, [name]: +value.trim()}
+                        return {...prev, [name]: value.trim()}
                     })
                 }
             }
@@ -107,7 +107,7 @@ const useFormData = (initialData?: project | skill) => {
                 setStatusChanges(false)
             }  
         } else {
-            if(Object.keys(formData).length > 4) {
+            if((Object.keys(formData).length > 4) || (Object.keys(formData).includes("icon") && Object.keys(formData).length > 2)) {
                 setStatusChanges(true)
             } else {
                 setStatusChanges(false)

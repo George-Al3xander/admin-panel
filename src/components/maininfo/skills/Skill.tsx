@@ -6,17 +6,36 @@ import useUpdate from "../../../hooks/useUpdate";
 import EditSkill from "./EditSkill";
 import { useState } from "react";
 import DeleteConfirm from "../../DeleteConfirm";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase-config";
+import { toast } from "react-toastify";
 
 
 
 
-const Skill = ({skill}: {skill: skill}) => {
-    const {name, icon, order} = skill
-    const update = (formData: formData) => {
-        console.log(formData)
+const Skill = ({skill, refetch}: {skill: skill, refetch: Function}) => {
+    const {name, icon, order} = skill;
+    const notifyErr = (msg:string) => toast.error(msg);
+    const notifySucces = (msg:string) => toast.success(msg);
+
+    const update = async (formData: formData) => {
+        const docRef = doc(db, "skills", skill.id);
+        const temp = formData
+        // @ts-ignore
+        temp.order = +formData.order
+        try {
+            await updateDoc(docRef, temp)  ;
+            refetch();
+            notifySucces(`"${skill.name}" edited`)            
+        } catch (error) {
+            notifyErr(`Updating ${skill.name}" failed`) 
+        }
+
     }
-    const deleteSkill = () => {
-        console.log(11)
+    const deleteSkill = async () => {
+        await deleteDoc(doc(db, "skills", skill.id));
+        notifySucces(`"${skill.name}" deleted`)
+        refetch()
     }
     const {editStatus, handleStatus, mutate} = useUpdate(update)
     const [deleteMenu,setDeleteMenu] = useState(false)
@@ -26,7 +45,7 @@ const Skill = ({skill}: {skill: skill}) => {
         return <EditSkill mutate={mutate} handleStatus={handleStatus}  skill={skill}/>
     }
 
-    return(<div className="border-2 p-2 rounded relative"> 
+    return(<li className="border-2 p-2 rounded relative"> 
         <DeleteConfirm obj={skill} status={deleteMenu} deleteFunc={deleteSkill} cancelFunc={() => setDeleteMenu(false)}/>
         
         <div className="max-w-[4rem] mx-auto my-4">
@@ -40,7 +59,7 @@ const Skill = ({skill}: {skill: skill}) => {
             <Button onClick={handleStatus}  className="mx-auto" >Edit</Button>                
             <Button variant="reject" onClick={() => setDeleteMenu(true)}  className="mx-auto"  >Delete</Button>                
         </div>
-    </div>)
+    </li>)
 }
 
 

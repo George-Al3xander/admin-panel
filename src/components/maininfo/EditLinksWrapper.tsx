@@ -34,7 +34,7 @@ const EditLinksWrapper = ({links, type}: {links: links,type: "email" | "github" 
 
     return (<div className="p-2">
         <input className="w-[100%] border-b-2 focus:outline-none focus:border-b-2 focus:border-primary" type="text" defaultValue={data ? data as string :  initialData} onChange={(e) => setText(e.target.value)}/>         
-        <AcceptRejectBtns accept={() => mutate()} reject={handleStatus} condtion={text == initialData || isLoading || data == text}/>
+        <AcceptRejectBtns accept={() => mutate()} reject={handleStatus} condtion={data ? data == text :  text == initialData}/>
     </div>)
 
 
