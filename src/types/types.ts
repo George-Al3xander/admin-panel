@@ -47,3 +47,8 @@ export type picture = {
 export type PreviewCoompProps = {
     initialData: unknown
 }
+
+export type user = {
+    email: string,
+    password: string
+}
