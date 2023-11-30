@@ -6,7 +6,7 @@ import { PreviewCoompProps } from "../types/types"
 
 const EditWrapper = ({initialData, mutationFn,LoadingCoomp,PreviewCoomp,EditCoomp}: {initialData: unknown,mutationFn:any,LoadingCoomp:React.ComponentType,PreviewCoomp:React.ComponentType<PreviewCoompProps>,EditCoomp:React.ComponentType}) => {
     
-    const  {data, mutate, isLoading,isError,editStatus,handleStatus} = useUpdate(mutationFn)
+    const  {data, mutate, isLoading,editStatus,handleStatus} = useUpdate(mutationFn)
 
     
 

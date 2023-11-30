@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --clr-primary: #21209C
+}
 
 nav .active {
     opacity: 1;

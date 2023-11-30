@@ -6,7 +6,7 @@ import useFormData from "../../../hooks/useFormData"
 import parse from 'html-react-parser';
 
 
-const EditSkill = ({skill, handleStatus, mutate, refetch}: {skill?: skill, handleStatus: Function, mutate: Function, refetch?:Function}) => {
+const EditSkill = ({skill, handleStatus, mutate}: {skill?: skill, handleStatus: Function, mutate: Function, refetch?:Function}) => {
 
     const {formData,handleChange, statusChanges, removeFromForm} = useFormData(skill);
     const [iconInput, setIconInput] = useState("file");

@@ -1,17 +1,16 @@
-import useAuth, { useAuthResult } from "../../hooks/useAuth"
+import  { useAuthResult } from "../../hooks/useAuth"
 import Button from "../reusable/Button"
 
 
 
 
-const Login = ({loggedIn, handleChange, isLoading,login, emailValid, passwordValid, isError} : useAuthResult) => {
+const Login = ({handleChange, isLoading,login, emailValid, passwordValid, isError} : useAuthResult) => {
 
 
     return(<main >
         <header  className="bg-primary p-4">
             <h3 className="text-lg italic uppercase text-white">Welcome to Admin panel</h3>
-        </header>
-        {loggedIn ? "Logged" : "nah"}
+        </header>        
         <section className="w-[100vw] h-[70vh] flex justify-center items-center">
             <form className="min-w-[20rem] border-2 rounded-xl p-4 flex flex-col gap-4 shadow-xl" onSubmit={(e) => {
                 e.preventDefault();

@@ -5,13 +5,10 @@ import EditProject from "./EditProject";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase-config";
 import { useState } from "react";
-
 import DeleteConfirm from "../DeleteConfirm";
 import { deleteObject, ref } from "firebase/storage";
 import { toast } from "react-toastify";
 import InfoField from "../InfoField";
-//import { ProjectsContext, handleProjectLocally, useHandleProjectLocally } from "../../hooks/useProjects";
-//import { useContext } from "react";
 
 
 
@@ -20,7 +17,7 @@ const Project = ({project, refetch}: {project:project, refetch: Function}) => {
     const [deleteMenu,setDeleteMenu] = useState(false)
     const {name, id,img,description,url_github,url_preview,isFullstack, isHidden} = project
     const projectsRef = doc(db, "projects", id)
-    const {url, fullName} = img
+    const {url} = img
     const update = async (formData: formData) => {
         await updateDoc(projectsRef, formData)        
     }

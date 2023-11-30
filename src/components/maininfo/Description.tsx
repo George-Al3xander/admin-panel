@@ -1,8 +1,7 @@
-import {useRef, useState } from "react";
+import {useState } from "react";
 import { description } from "../../types/types";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
-
 import useUpdate from "../../hooks/useUpdate.ts";
 import AcceptRejectBtns from "../reusable/AcceptRejectBtns";
 import Button from "../reusable/Button";
@@ -12,8 +11,7 @@ import Skeleton from "react-loading-skeleton";
 
 
 const Description = ({desc}: {desc: description}) => {
-    const {description,id} = desc    
-   // const editorRef = useRef<any>(null);
+    const {description,id} = desc       
     const descRef = doc(db, "links", id);
     const [newDesc, setNewDesc] = useState(description);
     const handleDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -53,27 +51,7 @@ const Description = ({desc}: {desc: description}) => {
 
    
     return(<div>
-        <h1 className="bg-primary text-white">Description</h1>
-        {/* <Editor
-         onInit={(evt, editor) => editorRef.current = editor}
-         initialValue={description}  
-      
-         apiKey={import.meta.env.VITE_MCE_API_KEY}
-         init={{
-           height: 500,
-           menubar: false,
-           plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
-             'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
-           ],
-           toolbar: 'undo redo | formatselect | ' +
-           'bold italic backcolor | alignleft aligncenter ' +
-           'alignright alignjustify | bullist numlist outdent indent | ' +
-           'removeformat | help',
-           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-         }}
-       />      */}
+        <h1 className="bg-primary text-white">Description</h1>        
        <textarea className="p-2 w-[100%]" onChange={handleDescChange} defaultValue={data ? data as string :  description} name="description" id=""  rows={10}></textarea>
        <AcceptRejectBtns condtion={data ? data == newDesc :  newDesc == description} accept={() => mutate()} reject={handleStatus}/>  
     </div>)

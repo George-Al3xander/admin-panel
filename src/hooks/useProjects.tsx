@@ -2,8 +2,8 @@ import { DocumentData, Query, getDocs, limit, orderBy, query, startAfter } from 
 import {ref, listAll,getDownloadURL} from "firebase/storage"
 import { storage } from "../firebase-config"
 import { projectsCollectionRef } from '../firebase-config';
-import { formData, project } from "../types/types";
-import {createContext, useContext, useEffect, useState} from "react"
+import {project } from "../types/types";
+import { useEffect, useState} from "react"
 
 
 

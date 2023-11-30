@@ -1,4 +1,4 @@
-import { formData, project, skill } from "../../../types/types"
+import { formData,skill } from "../../../types/types"
 import parse from 'html-react-parser';
 import Button from "../../reusable/Button";
 import InfoField from "../../InfoField";

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, FC } from "react"
 
-import { VariantProps, cva } from "class-variance-authority"
+import { VariantProps} from "class-variance-authority"
 import { buttonVariants, cn } from "./utils"
 
 

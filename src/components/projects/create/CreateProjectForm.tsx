@@ -4,7 +4,6 @@ import useUpdateImage from "../../../hooks/useUpdateImage.ts"
 import AcceptRejectBtns from "../../reusable/AcceptRejectBtns"
 import ProjectForm from "../ProjectForm"
 import { db } from "../../../firebase-config"
-import {  useEffect} from "react"
 import useValidateProjects from "../../../hooks/useValidateProjects.ts"
 import { toast } from "react-toastify"
 

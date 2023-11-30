@@ -7,5 +7,10 @@ export default defineConfig({
   server: {
     port:3000,
     open:true
+  },
+  base: "/admin-panel/",
+  build: {
+    sourcemap: true
   }
+  
 })

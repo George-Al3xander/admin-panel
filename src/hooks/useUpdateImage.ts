@@ -42,28 +42,21 @@ const useUpdateImage = ({image, onSucces, folder}: {image?: picture, onSucces: F
 
     
 
-    const resetUpload = () => {
-       // console.log(11)
+    const resetUpload = () => {      
         setImageUpload(null)
     }
 
-    const replaceImage = () => {
-        const extn = imageUpload?.name.split(".")[1]    
-
-    }
+    
 
     useEffect(() => {
         if(imageUpload) {
             setIsImage(true)
         } else {
             setIsImage(false)
-        }
-        //console.log(imageUpload)
+        }    
     }, [imageUpload])
 
-    useEffect(() => {        
-        //console.log(isImage)
-    },[isImage])
+   
     
     useEffect(() => {        
         if(!editStatus) {

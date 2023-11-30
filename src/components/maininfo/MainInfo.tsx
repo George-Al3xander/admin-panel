@@ -1,4 +1,4 @@
-import { linksCollectionRef, storage } from "../../firebase-config";
+import { linksCollectionRef} from "../../firebase-config";
 import { getDocs } from "firebase/firestore";
 import { description, links, linksDb } from "../../types/types";
 import { useQuery } from "react-query";
